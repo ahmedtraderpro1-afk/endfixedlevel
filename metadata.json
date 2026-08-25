@@ -1,0 +1,8 @@
+{
+  "name": "Jewelry By Nadia",
+  "description": "Luxury jewelry showcase and boutique for bridal, statement chokers, necklaces, and regal fine jewelry by Nadia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
