@@ -7,6 +7,9 @@ interface MobileMenuProps {
   onClose: () => void;
   onOpenSearch: () => void;
   onOpenBag: () => void;
+  onOpenWishlist?: () => void;
+  cartCount?: number;
+  wishlistCount?: number;
 }
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({
@@ -14,6 +17,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   onClose,
   onOpenSearch,
   onOpenBag,
+  onOpenWishlist,
+  cartCount = 0,
+  wishlistCount = 0,
 }) => {
   return (
     <AnimatePresence>
@@ -80,10 +86,17 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                 <button
                   type="button"
                   id="mobile-drawer-wishlist-btn"
+                  onClick={() => {
+                    onClose();
+                    onOpenWishlist?.();
+                  }}
+                  aria-label={`Wishlist with ${wishlistCount} items`}
                   className="flex flex-col items-center justify-center p-3 bg-[#151515] border border-[#c5a059]/10 text-[#f9f6f0]/80 hover:text-[#c5a059] hover:border-[#c5a059]/40 transition-all cursor-pointer"
                 >
                   <Heart className="w-4 h-4 mb-1" />
-                  <span className="text-[10px] tracking-wider uppercase">Wishlist</span>
+                  <span className="text-[10px] tracking-wider uppercase">
+                    Wishlist {wishlistCount > 0 ? `(${wishlistCount})` : ''}
+                  </span>
                 </button>
 
                 <button
@@ -93,10 +106,11 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                     onClose();
                     onOpenBag();
                   }}
+                  aria-label={`Shopping bag with ${cartCount} items`}
                   className="flex flex-col items-center justify-center p-3 bg-[#151515] border border-[#c5a059]/10 text-[#f9f6f0]/80 hover:text-[#c5a059] hover:border-[#c5a059]/40 transition-all cursor-pointer"
                 >
                   <ShoppingBag className="w-4 h-4 mb-1" />
-                  <span className="text-[10px] tracking-wider uppercase">Bag (0)</span>
+                  <span className="text-[10px] tracking-wider uppercase">Bag ({cartCount})</span>
                 </button>
               </div>
 

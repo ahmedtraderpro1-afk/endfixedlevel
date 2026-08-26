@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, Search, Heart, ShoppingBag, ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { MobileMenu } from './MobileMenu';
 
 interface HeaderProps {
@@ -56,8 +57,8 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* BRAND LOGO: Absolute True Center on Mobile, Standard Left on Desktop */}
             <div className="absolute left-1/2 -translate-x-1/2 text-center pointer-events-auto lg:static lg:translate-x-0 lg:text-left z-10">
-              <a
-                href="#home"
+              <Link
+                to="/"
                 id="brand-logo-link"
                 className="inline-block group focus:outline-none"
               >
@@ -92,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </svg>
                   </div>
                 </div>
-              </a>
+              </Link>
             </div>
 
             {/* DESKTOP NAVIGATION (Center) */}
@@ -216,6 +217,9 @@ export const Header: React.FC<HeaderProps> = ({
         onClose={() => setMobileMenuOpen(false)}
         onOpenSearch={onOpenSearch}
         onOpenBag={onOpenBag}
+        onOpenWishlist={onOpenWishlist}
+        cartCount={cartCount}
+        wishlistCount={wishlistCount}
       />
     </>
   );

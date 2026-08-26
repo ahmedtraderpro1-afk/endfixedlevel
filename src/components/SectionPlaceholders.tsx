@@ -8,6 +8,10 @@ import {
   Shield,
   Sparkles,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+import { PRODUCTS } from '../data/products';
 
 const categories = [
   {
@@ -39,39 +43,6 @@ const categories = [
     name: 'Festive Jewelry',
     subtitle: 'Celebrate Elegance',
     image: '/assets/jewelry/uploads/13-classic-gold-set.jpg',
-  },
-];
-
-const products = [
-  {
-    title: 'Noor Multicolor Choker',
-    price: '$450.00 USD',
-    image: '/assets/jewelry/uploads/03-ruby-bridal-necklace.jpg',
-  },
-  {
-    title: 'Mehr Emerald Pearl Choker',
-    price: '$520.00 USD',
-    image: '/assets/jewelry/uploads/12-emerald-closeup-edit.jpg',
-  },
-  {
-    title: 'Ayla Pearl Necklace',
-    price: '$420.00 USD',
-    image: '/assets/jewelry/uploads/01-pearl-emerald-set.jpg',
-  },
-  {
-    title: 'Meher Heritage Set',
-    price: '$560.00 USD',
-    image: '/assets/jewelry/uploads/09-royal-ruby-bridal-set.jpg',
-  },
-  {
-    title: 'Gul Statement Set',
-    price: '$550.00 USD',
-    image: '/assets/jewelry/uploads/08-emerald-opulent-set.jpg',
-  },
-  {
-    title: 'Sahar Statement Earrings',
-    price: '$240.00 USD',
-    image: '/assets/jewelry/uploads/04-heritage-earrings.jpg',
   },
 ];
 
@@ -126,7 +97,14 @@ const occasions = [
   },
 ];
 
-export const SectionPlaceholders: React.FC = () => {
+interface SectionPlaceholdersProps {
+  onOpenBag?: () => void;
+}
+
+export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpenBag }) => {
+  const { addToCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
+
   return (
     <div className="w-full space-y-14 sm:space-y-18 lg:space-y-20 py-10 sm:py-14 lg:py-16">
       <section
@@ -195,43 +173,90 @@ export const SectionPlaceholders: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-          {products.map((product) => (
-            <article
-              key={product.title}
-              className="group border border-[#c5a059]/18 bg-[#0d0d0d] overflow-hidden hover:border-[#c5a059]/55 transition-all duration-300"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#131313]">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  loading="lazy"
-                />
-                <button
-                  type="button"
-                  aria-label={`Add ${product.title} to wishlist`}
-                  className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-[#0a0a0a]/70 border border-[#f9f6f0]/12 text-[#f9f6f0] flex items-center justify-center"
-                >
-                  <Heart className="w-3.5 h-3.5" />
-                </button>
-              </div>
-              <div className="px-3 py-3.5">
-                <h3 className="text-[12px] text-[#f4efe8] leading-snug min-h-[34px]">
-                  {product.title}
-                </h3>
-                <div className="mt-2 flex items-end justify-between gap-2">
-                  <p className="text-[11px] text-[#c5a059] font-medium">{product.price}</p>
-                  <button
-                    type="button"
-                    aria-label={`Add ${product.title} to bag`}
-                    className="w-7 h-7 border border-[#c5a059]/35 text-[#c5a059] flex items-center justify-center hover:bg-[#c5a059] hover:text-[#0a0a0a] transition-colors"
-                  >
-                    <ShoppingBag className="w-3.5 h-3.5" />
-                  </button>
+          {PRODUCTS.map((product) => {
+            const inWishlist = isInWishlist(product.id);
+            return (
+              <article
+                key={product.id}
+                id={`product-card-${product.id}`}
+                className="group border border-[#c5a059]/18 bg-[#0d0d0d] overflow-hidden hover:border-[#c5a059]/55 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#131313]">
+                    <Link
+                      to={`/product/${product.slug}`}
+                      className="block w-full h-full"
+                      aria-label={`View ${product.title} details`}
+                    >
+                      <img
+                        src={product.mainImage}
+                        alt={product.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                        loading="lazy"
+                      />
+                    </Link>
+                    <button
+                      type="button"
+                      id={`wishlist-toggle-${product.id}`}
+                      aria-label={inWishlist ? `Remove ${product.title} from wishlist` : `Add ${product.title} to wishlist`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleWishlist({
+                          id: product.id,
+                          slug: product.slug,
+                          title: product.title,
+                          price: product.price,
+                          image: product.mainImage,
+                          category: product.category,
+                        });
+                      }}
+                      className={`absolute top-2.5 right-2.5 w-7 h-7 rounded-full border transition-all flex items-center justify-center cursor-pointer ${
+                        inWishlist
+                          ? 'bg-[#c5a059] border-[#c5a059] text-[#0a0a0a]'
+                          : 'bg-[#0a0a0a]/70 border-[#f9f6f0]/12 text-[#f9f6f0] hover:text-[#c5a059] hover:border-[#c5a059]/50'
+                      }`}
+                    >
+                      <Heart className={`w-3.5 h-3.5 ${inWishlist ? 'fill-current' : ''}`} />
+                    </button>
+                  </div>
+                  <div className="px-3 pt-3.5 pb-1">
+                    <Link
+                      to={`/product/${product.slug}`}
+                      className="text-[12px] text-[#f4efe8] hover:text-[#c5a059] transition-colors leading-snug line-clamp-2 min-h-[34px] block"
+                    >
+                      {product.title}
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <div className="px-3 pb-3.5">
+                  <div className="mt-2 flex items-end justify-between gap-2">
+                    <p className="text-[11px] text-[#c5a059] font-medium font-sans">
+                      ${product.price.toFixed(2)} USD
+                    </p>
+                    <button
+                      type="button"
+                      id={`add-to-bag-${product.id}`}
+                      aria-label={`Add ${product.title} to bag`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart({
+                          id: product.id,
+                          title: product.title,
+                          image: product.mainImage,
+                          price: product.price,
+                        });
+                        onOpenBag?.();
+                      }}
+                      className="w-7 h-7 border border-[#c5a059]/35 text-[#c5a059] flex items-center justify-center hover:bg-[#c5a059] hover:text-[#0a0a0a] transition-colors cursor-pointer"
+                    >
+                      <ShoppingBag className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
