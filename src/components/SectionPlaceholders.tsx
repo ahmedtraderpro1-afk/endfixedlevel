@@ -134,6 +134,7 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
                   alt={cat.name}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="px-3 py-3 text-center border-t border-[#c5a059]/12">
@@ -193,6 +194,7 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
                         alt={product.title}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                         loading="lazy"
+                        decoding="async"
                       />
                     </Link>
                     <button
@@ -273,6 +275,7 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
                 alt={card.kicker}
                 className="absolute inset-0 h-full w-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/92 via-[#0a0a0a]/68 to-[#0a0a0a]/30" />
               <div className="relative z-10 h-full p-6 sm:p-7 flex flex-col justify-between">
@@ -324,6 +327,7 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
                   alt={item.name}
                   className="absolute inset-0 h-full w-full object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-[#0a0a0a]/58" />
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-center p-6">
@@ -355,6 +359,7 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
               alt="Crafted To Perfection"
               className="h-full w-full object-cover"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
@@ -405,7 +410,7 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
             <input
               type="email"
               placeholder="Enter your email"
-              className="bg-[#151515] border border-[#c5a059]/20 px-4 py-3 text-sm text-[#f9f6f0] placeholder-[#f9f6f0]/30 focus:outline-none focus:border-[#c5a059] min-w-[250px]"
+              className="bg-[#151515] border border-[#c5a059]/20 px-4 py-3 text-sm text-[#f9f6f0] placeholder-[#f9f6f0]/30 focus:outline-none focus:border-[#c5a059] w-full sm:w-auto sm:min-w-[250px]"
             />
             <button
               type="submit"

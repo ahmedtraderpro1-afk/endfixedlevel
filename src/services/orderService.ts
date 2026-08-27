@@ -27,9 +27,21 @@ export interface CreateOrderResult {
   error?: string;
 }
 
+function generateClientUUID(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  // Standard UUID v4 fallback
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 /**
  * Creates an order record and associated line items in Supabase.
- * If Supabase is unconfigured or returns an error, returns a failure result gracefully without crashing.
+ * Uses client-generated UUIDs and blind inserts without .select() because anonymous users have INSERT permission only under RLS.
  */
 export async function createOrder(
   customerData: CustomerOrderData,
@@ -38,6 +50,9 @@ export async function createOrder(
   const orderReference = customerData.orderReference;
 
   if (!isSupabaseConfigured() || !supabase) {
+    if (import.meta.env.DEV) {
+      console.log('[DIAGNOSTIC] SUPABASE_CONFIGURED: false');
+    }
     return {
       success: false,
       orderReference,
@@ -45,11 +60,19 @@ export async function createOrder(
     };
   }
 
+  if (import.meta.env.DEV) {
+    console.log('[DIAGNOSTIC] SUPABASE_CONFIGURED: true');
+  }
+
   try {
-    // 1. Insert primary Order record
-    const { data: orderRow, error: orderError } = await supabase
+    // 1. Generate order UUID client-side
+    const orderId = generateClientUUID();
+
+    // 2. Insert primary Order record (NO .select() / .single() to respect RLS write-only policy)
+    const { error: orderError } = await supabase
       .from('orders')
       .insert({
+        id: orderId,
         order_reference: orderReference,
         first_name: customerData.firstName.trim(),
         last_name: customerData.lastName.trim(),
@@ -68,12 +91,12 @@ export async function createOrder(
         currency: customerData.currency || 'USD',
         status: 'WhatsApp Pending',
         source: 'website',
-      })
-      .select('id')
-      .single();
+      });
 
-    if (orderError || !orderRow) {
-      console.warn('Supabase order creation returned error:', orderError?.message || 'No order row returned');
+    if (orderError) {
+      if (import.meta.env.DEV) {
+        console.warn('[DIAGNOSTIC] ORDER_INSERT_FAILED:', orderError.message);
+      }
       return {
         success: false,
         orderReference,
@@ -81,11 +104,14 @@ export async function createOrder(
       };
     }
 
-    const orderId = orderRow.id;
+    if (import.meta.env.DEV) {
+      console.log('[DIAGNOSTIC] ORDER_INSERT_SUCCESS');
+    }
 
-    // 2. Insert Order Items snapshots
+    // 3. Insert Order Items snapshots using the same client-generated order UUID
     if (items && items.length > 0) {
       const orderItemsRows = items.map((item) => ({
+        id: generateClientUUID(),
         order_id: orderId,
         product_id: item.id || null,
         product_title: item.title,
@@ -95,19 +121,25 @@ export async function createOrder(
         line_total: Number((item.price * item.quantity).toFixed(2)),
       }));
 
+      // Blind insert without .select()
       const { error: itemsError } = await supabase
         .from('order_items')
         .insert(orderItemsRows);
 
       if (itemsError) {
-        console.warn('Supabase order_items creation returned error:', itemsError?.message);
-        // Order row was still saved
+        if (import.meta.env.DEV) {
+          console.warn('[DIAGNOSTIC] ORDER_ITEMS_INSERT_FAILED:', itemsError.message);
+        }
         return {
           success: true,
           orderId,
           orderReference,
           error: 'Order created, but items snapshot failed.',
         };
+      }
+
+      if (import.meta.env.DEV) {
+        console.log('[DIAGNOSTIC] ORDER_ITEMS_INSERT_SUCCESS');
       }
     }
 
@@ -117,7 +149,9 @@ export async function createOrder(
       orderReference,
     };
   } catch (err: any) {
-    console.warn('Unexpected error during database order creation:', err?.message || err);
+    if (import.meta.env.DEV) {
+      console.warn('[DIAGNOSTIC] ORDER_INSERT_FAILED: unexpected error');
+    }
     return {
       success: false,
       orderReference,
@@ -125,3 +159,4 @@ export async function createOrder(
     };
   }
 }
+

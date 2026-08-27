@@ -58,23 +58,32 @@
 .hero-reference {
   position: relative;
   width: 100%;
-  min-height: 520px;
-  overflow: hidden;
-  isolation: isolate;
   background: #070707;
   border-bottom: 1px solid rgba(197, 160, 89, 0.18);
-  margin-top: 2px;
-  margin-left: -7px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.hero-reference__media,
-.hero-reference__shade {
-  position: absolute;
-  inset: 0;
+.hero-reference__inner {
+  position: relative;
+  max-width: 1280px;
+  width: min(1280px, calc(100% - 32px));
+  min-height: clamp(420px, 45vw, 560px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 
 .hero-reference__media {
-  z-index: -3;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .hero-reference__media picture,
@@ -82,43 +91,38 @@
   display: block;
   width: 100%;
   height: 100%;
+  max-width: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: 75% center;
   user-select: none;
   pointer-events: none;
 }
 
 .hero-reference__shade {
-  z-index: -2;
-  padding-left: 17px;
-  margin-left: 29px;
-  margin-top: -7px;
-  padding-top: 11px;
-  padding-right: 10px;
-  padding-bottom: 5px;
-  margin-bottom: 18px;
-  margin-right: 19px;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
   background:
     linear-gradient(90deg,
-      rgba(5, 5, 5, 0.99) 0%,
-      rgba(5, 5, 5, 0.97) 20%,
-      rgba(5, 5, 5, 0.83) 34%,
-      rgba(5, 5, 5, 0.34) 49%,
-      rgba(5, 5, 5, 0.03) 68%),
-    linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.12) 100%);
-}
-
-.hero-reference__inner {
-  position: relative;
-  width: min(1180px, calc(100% - 48px));
-  min-height: 520px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
+      #070707 0%,
+      rgba(7, 7, 7, 0.98) 22%,
+      rgba(7, 7, 7, 0.88) 36%,
+      rgba(7, 7, 7, 0.42) 52%,
+      rgba(7, 7, 7, 0.05) 72%,
+      rgba(7, 7, 7, 0) 100%),
+    linear-gradient(180deg, rgba(7, 7, 7, 0.08) 0%, rgba(7, 7, 7, 0.18) 100%);
 }
 
 .hero-reference__copy {
-  width: min(470px, 44vw);
+  position: relative;
+  z-index: 3;
+  width: min(470px, 46vw);
+  min-width: 0;
   padding: 44px 0 48px;
   color: #f9f6f0;
 }
@@ -307,17 +311,18 @@
 }
 
 @media (max-width: 1023px) {
-  .hero-reference {
-    min-height: 450px;
-  }
-
   .hero-reference__inner {
-    width: min(900px, calc(100% - 36px));
-    min-height: 450px;
+    width: min(900px, calc(100% - 32px));
+    min-height: 440px;
   }
 
   .hero-reference__copy {
-    width: min(430px, 54vw);
+    width: min(420px, 54vw);
+    padding: 36px 0 40px;
+  }
+
+  .hero-reference__media img {
+    object-position: 72% center;
   }
 
   .hero-reference__desktop-badge {
@@ -326,49 +331,30 @@
 }
 
 @media (max-width: 640px) {
-  .hero-reference {
+  .hero-reference__inner {
+    width: calc(100% - 24px);
     min-height: 350px;
-    background: #070707;
-  }
-
-  .hero-reference__media {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
+    align-items: center;
   }
 
   .hero-reference__media img {
     display: block;
     width: 100%;
     height: 100%;
-    max-width: none;
+    max-width: 100%;
     object-fit: cover;
     object-position: 68% center;
   }
 
   .hero-reference__shade {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
     background:
       linear-gradient(90deg,
         #070707 0%,
         rgba(7, 7, 7, 0.96) 30%,
-        rgba(7, 7, 7, 0.58) 50%,
-        rgba(7, 7, 7, 0.12) 74%,
+        rgba(7, 7, 7, 0.62) 52%,
+        rgba(7, 7, 7, 0.15) 76%,
         rgba(7, 7, 7, 0) 100%),
       linear-gradient(180deg, rgba(7, 7, 7, 0.05) 0%, rgba(7, 7, 7, 0.25) 100%);
-  }
-
-  .hero-reference__inner {
-    position: relative;
-    z-index: 3;
-    width: calc(100% - 32px);
-    min-height: 350px;
-    align-items: center;
   }
 
   .hero-reference__copy {
@@ -496,24 +482,12 @@
 }
 
 @media (max-width: 390px) {
-  .hero-reference {
-    min-height: 335px;
-  }
-
   .hero-reference__inner {
     min-height: 335px;
-  }
-
-  .hero-reference__media {
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 20px);
   }
 
   .hero-reference__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     object-position: 70% center;
   }
 

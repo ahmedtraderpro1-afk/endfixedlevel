@@ -144,6 +144,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 alt={product.title}
                 fetchPriority="high"
                 loading="eager"
+                decoding="async"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
 
@@ -194,6 +195,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                         alt={`${product.title} view ${idx + 1}`}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        decoding="async"
                       />
                     </button>
                   );
@@ -425,6 +427,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       alt={rel.title}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
+                      decoding="async"
                     />
                   </Link>
                   <div className="p-3 sm:p-4">

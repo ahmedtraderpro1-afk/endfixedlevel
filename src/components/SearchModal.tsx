@@ -96,6 +96,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                             src={product.mainImage}
                             alt={product.title}
                             className="w-12 h-14 object-cover shrink-0 border border-[#c5a059]/20"
+                            loading="lazy"
+                            decoding="async"
                           />
                           <div className="flex-1 min-w-0">
                             <h4 className="text-xs sm:text-sm font-serif text-[#f9f6f0] group-hover:text-[#c5a059] transition-colors truncate">

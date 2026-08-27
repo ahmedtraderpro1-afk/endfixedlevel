@@ -104,6 +104,7 @@ export const BagDrawer: React.FC<BagDrawerProps> = ({ isOpen, onClose }) => {
                         alt={item.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
 

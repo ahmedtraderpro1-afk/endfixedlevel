@@ -4,13 +4,16 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const isSupabaseConfigured = (): boolean => {
-  return Boolean(
+  const isConfigured = Boolean(
     supabaseUrl &&
     supabaseAnonKey &&
+    typeof supabaseUrl === 'string' &&
+    typeof supabaseAnonKey === 'string' &&
     supabaseUrl.trim().length > 0 &&
-    supabaseAnonKey.trim().length > 0 &&
-    supabaseUrl.startsWith('https://')
+    supabaseAnonKey.trim().length > 0
   );
+
+  return isConfigured;
 };
 
 let clientInstance: SupabaseClient | null = null;
@@ -23,9 +26,18 @@ if (isSupabaseConfigured()) {
         autoRefreshToken: false,
       },
     });
+    if (import.meta.env.DEV) {
+      console.log('[DIAGNOSTIC] SUPABASE_CONFIGURED: true');
+    }
   } catch (error) {
-    console.warn('Failed to initialize Supabase client:', error);
+    if (import.meta.env.DEV) {
+      console.warn('[DIAGNOSTIC] SUPABASE_INIT_ERROR');
+    }
     clientInstance = null;
+  }
+} else {
+  if (import.meta.env.DEV) {
+    console.log('[DIAGNOSTIC] SUPABASE_CONFIGURED: false');
   }
 }
 
@@ -34,3 +46,4 @@ export const supabase = clientInstance;
 export function getSupabase(): SupabaseClient | null {
   return supabase;
 }
+
