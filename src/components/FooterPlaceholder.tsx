@@ -1,5 +1,6 @@
 import React from 'react';
 import { Facebook, Instagram, Youtube } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 
 export const FooterPlaceholder: React.FC = () => {
   return (
@@ -11,9 +12,8 @@ export const FooterPlaceholder: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr] gap-8 border-b border-[#c5a059]/10 pb-8">
           <div>
-            <div className="leading-none mb-4">
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#dfc89e] block mb-1">Jewelry By</span>
-              <span className="text-3xl font-serif tracking-[0.14em] uppercase text-[#dfc89e] block">Nadia</span>
+            <div className="mb-4">
+              <BrandLogo size="md" className="!items-start text-left" />
             </div>
             <p className="text-sm leading-relaxed max-w-sm text-[#f9f6f0]/65">
               Luxury jewelry for life&apos;s most beautiful moments.

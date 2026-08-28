@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, Search, Heart, ShoppingBag, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MobileMenu } from './MobileMenu';
+import { BrandLogo } from './BrandLogo';
 
 interface HeaderProps {
   onOpenSearch: () => void;
@@ -60,39 +61,10 @@ export const Header: React.FC<HeaderProps> = ({
               <Link
                 to="/"
                 id="brand-logo-link"
-                className="inline-block group focus:outline-none"
+                className="inline-block group focus:outline-none py-1"
+                aria-label="Jewelry By Nadia - Return to Home"
               >
-                <div className="flex flex-col items-center lg:items-start leading-none py-1">
-                  <span className="text-[9.5px] sm:text-[10.5px] font-sans tracking-[0.2em] font-normal text-[#dfc89e] antialiased">
-                    Jewelry By
-                  </span>
-                  <span className="text-[21px] sm:text-2xl lg:text-[28px] font-serif tracking-[0.12em] uppercase font-normal text-[#dfc89e] antialiased mt-1 group-hover:text-[#f3e5ca] transition-colors">
-                    NADIA
-                  </span>
-                  {/* Decorative Luxury Underline Filigree matching approved reference */}
-                  <div className="w-24 sm:w-28 mt-1 text-[#c5a059] flex items-center justify-center pointer-events-none">
-                    <svg
-                      viewBox="0 0 120 10"
-                      className="w-full h-auto stroke-current"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <line x1="2" y1="5" x2="38" y2="5" strokeWidth="0.8" strokeOpacity="0.85" />
-                      <path
-                        d="M38 5 C 42 2, 48 2, 52 5 C 55 7, 58 7, 60 4 C 62 7, 65 7, 68 5 C 72 2, 78 2, 82 5"
-                        strokeWidth="0.8"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M43 5 C 46 8, 51 8, 54 5 C 57 3, 59 3, 60 5 C 61 3, 63 3, 66 5 C 69 8, 74 8, 77 5"
-                        strokeWidth="0.8"
-                        strokeLinecap="round"
-                      />
-                      <circle cx="60" cy="5" r="1" fill="currentColor" />
-                      <line x1="82" y1="5" x2="118" y2="5" strokeWidth="0.8" strokeOpacity="0.85" />
-                    </svg>
-                  </div>
-                </div>
+                <BrandLogo size="md" />
               </Link>
             </div>
 

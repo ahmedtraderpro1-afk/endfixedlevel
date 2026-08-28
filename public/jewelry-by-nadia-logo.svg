@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0d0d0d"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+
+    <!-- Luxury Gold Gradient for NADIA -->
+    <linearGradient id="goldTextGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF5DC"/>
+      <stop offset="25%" stop-color="#EED5A1"/>
+      <stop offset="50%" stop-color="#C5A059"/>
+      <stop offset="85%" stop-color="#9C7730"/>
+      <stop offset="100%" stop-color="#73541B"/>
+    </linearGradient>
+
+    <!-- Metallic Gold Gradient for Ornament -->
+    <linearGradient id="goldOrnamentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9C7730"/>
+      <stop offset="30%" stop-color="#EED5A1"/>
+      <stop offset="50%" stop-color="#FFF5DC"/>
+      <stop offset="70%" stop-color="#EED5A1"/>
+      <stop offset="100%" stop-color="#9C7730"/>
+    </linearGradient>
+
+    <!-- Subtle Bevel Shadow Filter -->
+    <filter id="goldGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#000000" flood-opacity="0.8"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#C5A059" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Dark Background -->
+  <rect width="600" height="600" fill="url(#bgGrad)"/>
+
+  <!-- Logo Group Centered -->
+  <g transform="translate(300, 300)" text-anchor="middle">
+    <!-- Top Text: Jewelry By -->
+    <text
+      y="-60"
+      font-family="'Montserrat', 'Century Gothic', -apple-system, sans-serif"
+      font-size="34"
+      font-weight="300"
+      letter-spacing="9"
+      fill="#F5F0EB"
+      opacity="0.95"
+    >
+      Jewelry By
+    </text>
+
+    <!-- Main Heading: NADIA -->
+    <text
+      y="52"
+      font-family="'Cinzel', 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif"
+      font-size="118"
+      font-weight="700"
+      letter-spacing="6"
+      fill="url(#goldTextGrad)"
+      filter="url(#goldGlow)"
+    >
+      NADIA
+    </text>
+
+    <!-- Symmetrical Luxury Underline Flourish -->
+    <g transform="translate(0, 105)">
+      <!-- Left Horizontal Line -->
+      <line x1="-235" y1="0" x2="-80" y2="0" stroke="url(#goldOrnamentGrad)" stroke-width="2.2" stroke-linecap="round"/>
+      
+      <!-- Left & Center Filigree Ribbon Loops -->
+      <path
+        d="M -80,0 C -68,-14 -48,-14 -32,0 C -18,12 0,12 0,0 C 0,12 18,12 32,0 C 48,-14 68,-14 80,0"
+        fill="none"
+        stroke="url(#goldOrnamentGrad)"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      
+      <!-- Intertwining Counter Curve -->
+      <path
+        d="M -70,0 C -56,14 -40,14 -24,0 C -12,-8 0,-8 0,0 C 0,-8 12,-8 24,0 C 40,14 56,14 70,0"
+        fill="none"
+        stroke="url(#goldOrnamentGrad)"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      
+      <!-- Central Teardrop Jewel Accent -->
+      <path
+        d="M 0,-4 C -3,2 0,6 0,6 C 0,6 3,2 0,-4 Z"
+        fill="url(#goldOrnamentGrad)"
+      />
+
+      <!-- Right Horizontal Line -->
+      <line x1="80" y1="0" x2="235" y2="0" stroke="url(#goldOrnamentGrad)" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

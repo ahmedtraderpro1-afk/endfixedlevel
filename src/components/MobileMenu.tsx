@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronRight, Sparkles, Heart, ShoppingBag, Search } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -49,14 +50,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
             <div>
               {/* Header inside drawer */}
               <div className="flex items-center justify-between pb-6 border-b border-[#f9f6f0]/5">
-                <div className="text-left leading-none">
-                  <span className="text-[9px] tracking-[0.3em] uppercase opacity-60 text-[#f9f6f0] block mb-1">
-                    Jewelry By
-                  </span>
-                  <span className="text-xl font-serif tracking-[0.1em] uppercase text-[#f9f6f0] font-normal">
-                    Nadia
-                  </span>
-                </div>
+                <BrandLogo size="sm" className="!items-start text-left" />
                 <button
                   type="button"
                   id="close-mobile-menu-btn"
