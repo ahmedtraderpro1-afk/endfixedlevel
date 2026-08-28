@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ChevronRight, Sparkles, Heart, ShoppingBag, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { X, ChevronRight, ChevronDown, Sparkles, Heart, ShoppingBag, Search } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
 interface MobileMenuProps {
@@ -22,6 +23,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   cartCount = 0,
   wishlistCount = 0,
 }) => {
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
   return (
     <AnimatePresence>
       {isOpen && (
@@ -111,38 +113,100 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
               {/* Navigation Links */}
               <ul className="space-y-1 py-4">
                 <li>
-                  <a
-                    href="#home"
+                  <Link
+                    to="/"
                     onClick={onClose}
-                    className="flex items-center justify-between py-3 px-3 text-xs font-sans tracking-[0.2em] uppercase text-[#f9f6f0] bg-[#151515] border-l-2 border-[#c5a059]"
+                    className="flex items-center justify-between py-3 px-3 text-xs font-sans tracking-[0.2em] uppercase text-[#f9f6f0] hover:text-[#c5a059] bg-[#151515] border-l-2 border-[#c5a059]"
                   >
                     <span>Home</span>
                     <Sparkles className="w-3.5 h-3.5 text-[#c5a059]" />
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#shop-by-category"
-                    onClick={onClose}
-                    className="flex items-center justify-between py-3 px-3 text-xs font-sans tracking-[0.2em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059] hover:bg-[#151515] transition-all"
-                  >
-                    <span>Shop</span>
-                    <ChevronRight className="w-4 h-4 text-[#c5a059]/40" />
-                  </a>
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between py-1">
+                      <Link
+                        to="/shop"
+                        onClick={onClose}
+                        className="flex-1 py-2 px-3 text-xs font-sans tracking-[0.2em] uppercase text-[#f9f6f0]/90 hover:text-[#c5a059] transition-all"
+                      >
+                        <span>Shop All</span>
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => setCategoriesOpen(!categoriesOpen)}
+                        aria-label="Toggle categories"
+                        className="p-2 text-[#c5a059] hover:bg-[#151515] transition-colors"
+                      >
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            categoriesOpen ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                    </div>
+
+                    {categoriesOpen && (
+                      <div className="pl-6 pr-2 py-1 space-y-1 bg-[#101010] border-l border-[#c5a059]/20 my-1">
+                        <Link
+                          to="/category/bridal-sets"
+                          onClick={onClose}
+                          className="block py-2 text-[11px] font-sans tracking-[0.16em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059]"
+                        >
+                          Bridal Sets
+                        </Link>
+                        <Link
+                          to="/category/chokers"
+                          onClick={onClose}
+                          className="block py-2 text-[11px] font-sans tracking-[0.16em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059]"
+                        >
+                          Chokers
+                        </Link>
+                        <Link
+                          to="/category/necklaces"
+                          onClick={onClose}
+                          className="block py-2 text-[11px] font-sans tracking-[0.16em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059]"
+                        >
+                          Necklaces
+                        </Link>
+                        <Link
+                          to="/category/earrings"
+                          onClick={onClose}
+                          className="block py-2 text-[11px] font-sans tracking-[0.16em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059]"
+                        >
+                          Earrings
+                        </Link>
+                        <Link
+                          to="/category/pearl-collections"
+                          onClick={onClose}
+                          className="block py-2 text-[11px] font-sans tracking-[0.16em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059]"
+                        >
+                          Pearl Collections
+                        </Link>
+                        <Link
+                          to="/category/festive-jewelry"
+                          onClick={onClose}
+                          className="block py-2 text-[11px] font-sans tracking-[0.16em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059]"
+                        >
+                          Festive Jewelry
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </li>
                 <li>
-                  <a
-                    href="#signature-collection"
+                  <Link
+                    to="/shop"
                     onClick={onClose}
                     className="flex items-center justify-between py-3 px-3 text-xs font-sans tracking-[0.2em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059] hover:bg-[#151515] transition-all"
                   >
                     <span>Collections</span>
                     <ChevronRight className="w-4 h-4 text-[#c5a059]/40" />
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a
-                    href="#shop-by-occasion"
+                    href="/#shop-by-occasion"
                     onClick={onClose}
                     className="flex items-center justify-between py-3 px-3 text-xs font-sans tracking-[0.2em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059] hover:bg-[#151515] transition-all"
                   >
@@ -152,7 +216,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                 </li>
                 <li>
                   <a
-                    href="#crafted-to-perfection"
+                    href="/#crafted-to-perfection"
                     onClick={onClose}
                     className="flex items-center justify-between py-3 px-3 text-xs font-sans tracking-[0.2em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059] hover:bg-[#151515] transition-all"
                   >
@@ -161,7 +225,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                 </li>
                 <li>
                   <a
-                    href="#private-styling"
+                    href="/#private-styling"
                     onClick={onClose}
                     className="flex items-center justify-between py-3 px-3 text-xs font-sans tracking-[0.2em] uppercase text-[#f9f6f0]/70 hover:text-[#c5a059] hover:bg-[#151515] transition-all"
                   >

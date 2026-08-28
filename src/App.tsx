@@ -11,6 +11,8 @@ import { BagDrawer } from './components/BagDrawer';
 import { WishlistDrawer } from './components/WishlistDrawer';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { CheckoutPage } from './pages/CheckoutPage';
+import { ShopPage } from './pages/ShopPage';
+import { CategoryPage } from './pages/CategoryPage';
 import { CartProvider, useCart } from './context/CartContext';
 import { WishlistProvider, useWishlist } from './context/WishlistContext';
 
@@ -84,6 +86,11 @@ function MainApp() {
       <main className="flex-1 w-full overflow-x-hidden">
         <Routes>
           <Route path="/" element={<HomePage onOpenBag={() => setBagOpen(true)} />} />
+          <Route path="/shop" element={<ShopPage onOpenBag={() => setBagOpen(true)} />} />
+          <Route
+            path="/category/:categorySlug"
+            element={<CategoryPage onOpenBag={() => setBagOpen(true)} />}
+          />
           <Route
             path="/product/:slug"
             element={

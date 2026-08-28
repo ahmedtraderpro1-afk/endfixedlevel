@@ -16,31 +16,37 @@ import { PRODUCTS } from '../data/products';
 const categories = [
   {
     name: 'Bridal Sets',
+    slug: 'bridal-sets',
     subtitle: 'View Pieces',
     image: '/assets/jewelry/uploads/03-ruby-bridal-necklace.jpg',
   },
   {
     name: 'Chokers',
+    slug: 'chokers',
     subtitle: 'Shop Now',
     image: '/assets/jewelry/uploads/12-emerald-closeup-edit.jpg',
   },
   {
     name: 'Necklaces',
+    slug: 'necklaces',
     subtitle: 'Luxury Styles',
     image: '/assets/jewelry/uploads/05-emerald-royal-bridal-set.jpg',
   },
   {
     name: 'Earrings',
+    slug: 'earrings',
     subtitle: 'Statement Pairs',
     image: '/assets/jewelry/uploads/04-heritage-earrings.jpg',
   },
   {
     name: 'Pearl Collections',
+    slug: 'pearl-collections',
     subtitle: 'Classic Beauty',
     image: '/assets/jewelry/uploads/07-multistrand-pearl-set.jpg',
   },
   {
     name: 'Festive Jewelry',
+    slug: 'festive-jewelry',
     subtitle: 'Celebrate Elegance',
     image: '/assets/jewelry/uploads/13-classic-gold-set.jpg',
   },
@@ -124,9 +130,11 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
 
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           {categories.map((cat) => (
-            <article
+            <Link
               key={cat.name}
-              className="group overflow-hidden border border-[#c5a059]/25 bg-[#0d0d0d] hover:border-[#c5a059]/60 transition-all duration-300"
+              to={`/category/${cat.slug}`}
+              id={`category-card-${cat.slug}`}
+              className="group overflow-hidden border border-[#c5a059]/25 bg-[#0d0d0d] hover:border-[#c5a059]/60 transition-all duration-300 block focus:outline-none focus:ring-1 focus:ring-[#c5a059]"
             >
               <div className="aspect-[4/3] overflow-hidden bg-[#131313]">
                 <img
@@ -138,14 +146,14 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
                 />
               </div>
               <div className="px-3 py-3 text-center border-t border-[#c5a059]/12">
-                <h3 className="text-[11px] sm:text-[12px] uppercase tracking-[0.18em] text-[#f9f6f0] font-medium">
+                <h3 className="text-[11px] sm:text-[12px] uppercase tracking-[0.18em] text-[#f9f6f0] group-hover:text-[#c5a059] transition-colors font-medium">
                   {cat.name}
                 </h3>
                 <p className="text-[9px] uppercase tracking-[0.2em] text-[#c5a059] mt-1">
                   {cat.subtitle}
                 </p>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
@@ -164,13 +172,14 @@ export const SectionPlaceholders: React.FC<SectionPlaceholdersProps> = ({ onOpen
               Signature Collection
             </h2>
           </div>
-          <a
-            href="#shop-by-category"
-            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#c5a059] hover:text-[#d4af37] inline-flex items-center gap-1.5"
+          <Link
+            to="/shop"
+            id="view-all-signature-link"
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#c5a059] hover:text-[#d4af37] inline-flex items-center gap-1.5 transition-colors"
           >
             <span>View All Collection</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+          </Link>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">

@@ -74,50 +74,124 @@ export const Header: React.FC<HeaderProps> = ({
               aria-label="Desktop Navigation"
               className="hidden lg:flex items-center space-x-7 xl:space-x-8"
             >
-              <a
-                href="#home"
+              <Link
+                to="/"
                 id="nav-link-home"
                 className="text-[11px] uppercase tracking-[0.15em] text-[#f9f6f0] hover:text-[#c5a059] transition-colors relative py-1"
               >
                 <span>Home</span>
-                <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#c5a059]" />
-              </a>
+              </Link>
 
+              {/* Shop with Category Dropdown */}
               <div className="relative group">
-                <a
-                  href="#shop-by-category"
+                <Link
+                  to="/shop"
                   id="nav-link-shop"
                   className="flex items-center gap-1 text-[11px] uppercase tracking-[0.15em] opacity-80 hover:opacity-100 hover:text-[#c5a059] text-[#f9f6f0] transition-colors py-1"
                 >
                   <span>Shop</span>
                   <ChevronDown className="w-3 h-3 opacity-60 group-hover:opacity-100 group-hover:text-[#c5a059] transition-transform group-hover:rotate-180 duration-200" />
-                </a>
+                </Link>
+
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-0 w-48 bg-[#0c0c0c] border border-[#c5a059]/25 shadow-xl shadow-black/80 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <Link
+                    to="/shop"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#c5a059] hover:bg-[#161616] border-b border-[#c5a059]/15 font-semibold"
+                  >
+                    All Jewelry
+                  </Link>
+                  <Link
+                    to="/category/bridal-sets"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    Bridal Sets
+                  </Link>
+                  <Link
+                    to="/category/chokers"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    Chokers
+                  </Link>
+                  <Link
+                    to="/category/necklaces"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    Necklaces
+                  </Link>
+                  <Link
+                    to="/category/earrings"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    Earrings
+                  </Link>
+                  <Link
+                    to="/category/pearl-collections"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    Pearl Collections
+                  </Link>
+                  <Link
+                    to="/category/festive-jewelry"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    Festive Jewelry
+                  </Link>
+                </div>
               </div>
 
+              {/* Collections */}
               <div className="relative group">
-                <a
-                  href="#signature-collection"
+                <Link
+                  to="/shop"
                   id="nav-link-collections"
                   className="flex items-center gap-1 text-[11px] uppercase tracking-[0.15em] opacity-80 hover:opacity-100 hover:text-[#c5a059] text-[#f9f6f0] transition-colors py-1"
                 >
                   <span>Collections</span>
                   <ChevronDown className="w-3 h-3 opacity-60 group-hover:opacity-100 group-hover:text-[#c5a059] transition-transform group-hover:rotate-180 duration-200" />
-                </a>
+                </Link>
+
+                {/* Collections Dropdown */}
+                <div className="absolute top-full left-0 w-52 bg-[#0c0c0c] border border-[#c5a059]/25 shadow-xl shadow-black/80 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <Link
+                    to="/category/bridal-sets"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    The Bridal Edit
+                  </Link>
+                  <Link
+                    to="/category/chokers"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    The Emerald Edit
+                  </Link>
+                  <Link
+                    to="/category/pearl-collections"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#f9f6f0]/80 hover:text-[#c5a059] hover:bg-[#161616] transition-colors"
+                  >
+                    Pearl Heritage
+                  </Link>
+                  <Link
+                    to="/shop"
+                    className="block px-4 py-2 text-[10px] uppercase tracking-[0.16em] text-[#c5a059] hover:bg-[#161616] border-t border-[#c5a059]/15 font-semibold"
+                  >
+                    View All Collections
+                  </Link>
+                </div>
               </div>
 
               <div className="relative group">
                 <a
-                  href="#shop-by-occasion"
+                  href="/#shop-by-occasion"
                   id="nav-link-occasions"
                   className="flex items-center gap-1 text-[11px] uppercase tracking-[0.15em] opacity-80 hover:opacity-100 hover:text-[#c5a059] text-[#f9f6f0] transition-colors py-1"
                 >
                   <span>Occasions</span>
-                  <ChevronDown className="w-3 h-3 opacity-60 group-hover:opacity-100 group-hover:text-[#c5a059] transition-transform group-hover:rotate-180 duration-200" />
                 </a>
               </div>
 
               <a
-                href="#crafted-to-perfection"
+                href="/#crafted-to-perfection"
                 id="nav-link-about"
                 className="text-[11px] uppercase tracking-[0.15em] opacity-80 hover:opacity-100 hover:text-[#c5a059] text-[#f9f6f0] transition-colors py-1"
               >
@@ -125,7 +199,7 @@ export const Header: React.FC<HeaderProps> = ({
               </a>
 
               <a
-                href="#private-styling"
+                href="/#private-styling"
                 id="nav-link-contact"
                 className="text-[11px] uppercase tracking-[0.15em] opacity-80 hover:opacity-100 hover:text-[#c5a059] text-[#f9f6f0] transition-colors py-1"
               >

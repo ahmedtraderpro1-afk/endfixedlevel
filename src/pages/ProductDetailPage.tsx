@@ -13,6 +13,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { getProductBySlug, getRelatedProducts } from '../data/products';
+import { categoryNameToSlug } from '../data/categories';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 
@@ -113,11 +114,16 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             Home
           </Link>
           <ChevronRight className="w-3 h-3 text-[#c5a059]/40" />
-          <Link to="/#signature-collection" className="hover:text-[#c5a059] transition-colors">
-            Collections
+          <Link to="/shop" className="hover:text-[#c5a059] transition-colors">
+            Shop
           </Link>
           <ChevronRight className="w-3 h-3 text-[#c5a059]/40" />
-          <span className="text-[#c5a059]/80">{product.category}</span>
+          <Link
+            to={`/category/${categoryNameToSlug(product.category)}`}
+            className="text-[#c5a059]/80 hover:text-[#c5a059] transition-colors"
+          >
+            {product.category}
+          </Link>
           <ChevronRight className="w-3 h-3 text-[#c5a059]/40" />
           <span className="text-[#f9f6f0] font-medium truncate max-w-[200px] sm:max-w-none">
             {product.title}
